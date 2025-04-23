@@ -7,7 +7,7 @@ My I-talent portfolio can be found under I-talent/portfolio_I-Talent_2425.md. Th
 > [!IMPORTANT]  
 Don't separate the image folder from the markdown file. MDP won't present a file containing faulty links to local files .
 ## install 
-Download the zip for your system and unzip it. 
+Download the zip for your system and unzip it. you can find it [here](https://github.com/zwartemees/MDP/releases/tag/Release)
 > [!IMPORTANT]  
 Don't separate the site and templateSite directories from the binary.
 
