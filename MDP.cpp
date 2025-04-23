@@ -193,24 +193,24 @@ string convertToLink(string mdString){
 
 
 
-				link = regex_replace(link, regex("/"), "\\");
+				link = regex_replace(link, regex("\\\\"), "/");
 
 				std::filesystem::path pahtToImage = std::filesystem::current_path() / link;
 				smatch match1;
-				path = regex_replace(path, regex("/"), "\\");
+				path = regex_replace(path, regex("\\\\"), "/");
 
-				regex_search(link, match1, regex("\\\\[^\\\\]*$"));
+				regex_search(link, match1, regex("/[^/]*$"));
 				string filename = match1.str(0).substr(1);
 
 				smatch match2;
-				regex_search(path, match2, regex("^.*\\\\"));
+				regex_search(path, match2, regex("^.*/"));
 				string relativePath = "";
 
 				if(match2.str(0).length() >= 1){
 					relativePath = match2.str(0);
 				}
-				std::filesystem::copy(relativePath + link, "site\\assets\\temp\\" + filename);
-				mdString = "<img src = \"assets\\temp\\" + filename + "\" alt = \"" + altText + "\">";
+				std::filesystem::copy(relativePath + link, "site/assets/temp/" + filename);
+				mdString = "<img src = \"assets/temp/" + filename + "\" alt = \"" + altText + "\">";
 			}
 
 		}
@@ -387,7 +387,7 @@ static void fn(struct mg_connection* c, int ev, void* ev_data) {
 
 
 int main(int argumentCount, char* arguments[]) {
-	for (const auto& entry : std::filesystem::directory_iterator("site\\assets\\temp\\")){
+	for (const auto& entry : std::filesystem::directory_iterator("site/assets/temp/")){
 		std::filesystem::remove_all(entry.path());
     }
 
