@@ -1,7 +1,7 @@
 # MDP
 ![](https://raw.githubusercontent.com/zwartemees/MDP/a813d41da8f0cf49d667600f52c81ba8ea6d6028/site/assets/images/MDP_darkmode.svg)
 MarkDown Present is a no nonsense CLI-tool to generate a presentation from markdown.
-All functions and syntax are documented here.
+All functions and syntax are documented [here](https://github.com/zwartemees/MDP/blob/main/documentation/syntax.md).
 ## I-talent
 My I-talent portfolio can be found under ``I-talent/portfolio_I-Talent_2425.md``. Follow the instructions under [install](#install) or [build](#build) to build from source.
 > [!IMPORTANT]  
