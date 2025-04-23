@@ -1,5 +1,6 @@
 //
 // Created by zwartemees on 07/11/2024.
+// last edit on 23/04/2024
 //
 
 #include <fstream>
@@ -15,6 +16,7 @@ using namespace std;
 int listDepth = 0;
 string currentVersion = "0.0.1";
 string help = "to reopen this menu use parameter -h/ --help\nto present run MDP <path-to-file>\n other supported arguments:\n -v/ --version\n\t to show the version number\n-t/ --tab followed by the number of spaces one tab is.\nThe standard is 4.\n-r/ --references\n To show a reference page at the end of the slide show. otherwise the refrences will show when a link is clicked but not when presenting";
+string path = "";
 string refrences = "";
 int spacesForOneTab = 4;
 bool showRef = false;
@@ -195,10 +197,19 @@ string convertToLink(string mdString){
 
 				std::filesystem::path pahtToImage = std::filesystem::current_path() / link;
 				smatch match1;
+				path = regex_replace(path, regex("/"), "\\");
+
 				regex_search(link, match1, regex("\\\\[^\\\\]*$"));
 				string filename = match1.str(0).substr(1);
-				std::filesystem::copy(pahtToImage.string(), "site\\assets\\temp\\" + filename);
 
+				smatch match2;
+				regex_search(path, match2, regex("^.*\\\\"));
+				string relativePath = "";
+
+				if(match2.str(0).length() >= 1){
+					relativePath = match2.str(0);
+				}
+				std::filesystem::copy(relativePath + link, "site\\assets\\temp\\" + filename);
 				mdString = "<img src = \"assets\\temp\\" + filename + "\" alt = \"" + altText + "\">";
 			}
 
@@ -376,8 +387,9 @@ static void fn(struct mg_connection* c, int ev, void* ev_data) {
 
 
 int main(int argumentCount, char* arguments[]) {
-	for (const auto& entry : std::filesystem::directory_iterator("site\\assets\\temp\\"))
+	for (const auto& entry : std::filesystem::directory_iterator("site\\assets\\temp\\")){
 		std::filesystem::remove_all(entry.path());
+    }
 
 	if (argumentCount == 1) {
 		cout << help << endl;
@@ -417,6 +429,7 @@ int main(int argumentCount, char* arguments[]) {
 
 
 	ifstream file(arguments[1]);
+    path = arguments[1];
 	if (!file.is_open()) {
 		cerr << "Error opening the file!";
 		return 1;
