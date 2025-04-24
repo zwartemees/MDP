@@ -24,6 +24,9 @@ cmake --build .
 When moving the binary don't separate the ``site`` and ``templateSite`` directories from the binary.
 
 ## usage
+> [!NOTE]
+Use arrow keys or return to show the next or previous slide
+
 To present, run:
 
 MDP <path-to-file>
